@@ -4,8 +4,9 @@
 #include <linux/device.h>
 #include <linux/uaccess.h>
 #include <linux/io.h>
+#include <linux/delay.h>
 
-MODULE_AUTHOR("Ryuichi Ueda");
+MODULE_AUTHOR("Ryuichi Ueda & Yuwa Aoki");
 MODULE_DESCRIPTION("driver for LED control");
 MODULE_LICENSE("GPL");
 MODULE_VERSION("0.0.1");
@@ -16,28 +17,58 @@ static struct class *cls = NULL;
 
 static volatile u32 *gpio_base = NULL;
 
-static ssize_t sushi_read(struct file* filp, char* buf, size_t count, loff_t* pos)
+static ssize_t ROM_read(struct file* filp, char* buf, size_t count, loff_t* pos)
 {
 	int size = 0;
-	char sushi[] = {'s', 'u', 's', 'h', 'i'};
-	if(copy_to_user(buf+size, (const char *)sushi, sizeof(sushi))){
-		printk(KERN_INFO "sushi : copy_to_user failed\n");
+	char ROM[] = {'R', 'O', 'M', 0x0A};
+	if(copy_to_user(buf+size, (const char *)ROM, sizeof(ROM))){
+		printk(KERN_INFO "ROM : copy_to_user failed\n");
 		return -EFAULT;
 	}
-	size += sizeof(sushi);
+	size += sizeof(ROM);
 	return size;
 }
 
 static ssize_t led_write(struct file* filp, const char* buf, size_t count, loff_t* pos)
 {
 	char c;
+	long t1 = 100;
+	long t2 = 1000;
 	if(copy_from_user(&c,buf,sizeof(char)))
 		return -EFAULT;
 
-	if(c == '0')
+	if(c == '0'){
 		gpio_base[10] = 1<< 25;
-	else if(c == '1')
+	}else if(c == '1'){
 		gpio_base[7] = 1<< 25;
+		mdelay(t1);
+		gpio_base[10] = 1<< 25;
+		mdelay(t2);
+
+		gpio_base[7] = 1<< 25;
+		mdelay(t1);
+		gpio_base[10] = 1<< 25;
+		mdelay(t2);
+
+		gpio_base[7] = 1<< 25;
+	       	mdelay(t1);
+		gpio_base[10] = 1<< 25;
+		mdelay(t2);
+
+		gpio_base[7] = 1<< 25;
+	       	mdelay(t1);
+		gpio_base[10] = 1<< 25;
+		mdelay(t2);
+
+		gpio_base[7] = 1<< 25;
+	   	mdelay(t1);
+		gpio_base[10] = 1<< 25;
+		mdelay(t2);
+
+		gpio_base[7] = 1<< 25;
+	       	mdelay(t1);
+		gpio_base[10] = 1<< 25;
+	}
 
 	return 1;
 }
@@ -45,7 +76,7 @@ static ssize_t led_write(struct file* filp, const char* buf, size_t count, loff_
 static struct file_operations led_fops = {
 	.owner = THIS_MODULE,
 	.write = led_write,
-	.read = sushi_read
+	.read = ROM_read
 };
 
 static int __init init_mod(void)
