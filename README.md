@@ -15,13 +15,13 @@
 https://youtu.be/X_BXumEmRjw
 
 # 使い方
- `git clone https://github.com/YuwaAoki/myled.git`  
- `cd myled`  
- `make`  
- `sudo insmod myled.ko`  
- `sudo chmod 666 /dev/myled0`  
- `echo 1 > /dev/myled0　（ledの点滅）`  
- `cat /dev/myled0　（文字を出力）`  
+     git clone https://github.com/YuwaAoki/myled.git  
+     cd myled  
+     make  
+     sudo insmod myled.ko  
+     sudo chmod 666 /dev/myled0  
+     echo 1 > /dev/myled0　（ledの点滅）  
+     cat /dev/myled0　（文字を出力）  
  
 
 # ライセンス
