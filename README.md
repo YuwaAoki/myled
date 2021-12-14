@@ -7,7 +7,8 @@
  Raspberry PI 4 Model BでGPIOから出力してledを点灯させるためのデバイスドライバ。ledを点滅させる。また、catで端末に文字を出力する。
  
  ## 配線
- 22番ピンのGPIO25とGroundピンをledでつなぐ。
+ *22番ピン*のGPIO25と*Groundピン*をledでつなぐ。  
+ ![IMG_20211214_143236](https://user-images.githubusercontent.com/92069972/145939410-e29f8a9a-2dbd-4a21-ac50-741843d6ff4b.jpg)
  
  
 # デモ
