@@ -34,8 +34,8 @@ https://youtu.be/X_BXumEmRjw
  
 
 # ライセンス
-SPDX-License-Identifier: GPL-3.0
+GPL-3.0
 
 
 # 著作者
-Copyright (C) 2021 Ryuichi Ueda. All rights reserved.
+Copyright (C) 2021 Ryuichi Ueda & Yuwa Aoki. All rights reserved.
